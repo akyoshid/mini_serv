@@ -1,0 +1,82 @@
+Assignment name  : mini_serv
+Expected files   : mini_serv.c
+Allowed functions: write, close, select, socket, accept, listen, send, recv, bind, strstr, malloc, realloc, free, calloc, bzero, atoi, sprintf, strlen, exit, strcpy, strcat, memset
+---
+
+原文: Write a program that will listen for client to connect on a certain port on 127.0.0.1 and will let clients to speak with each other  
+和訳: クライアントが127.0.0.1の特定のポートに接続するのを待機し、クライアント同士が相互に通信できるようにするプログラムを作成してください。
+
+原文: This program will take as first argument the port to bind to  
+和訳: このプログラムは第一引数としてバインドするポート番号を受け取る。
+
+原文: If no argument is given, it should write in stderr "Wrong number of arguments" followed by a \n and exit with status 1  
+和訳: 引数が与えられない場合、標準エラー出力に"Wrong number of arguments"と\nを出力し、ステータス1で終了する。
+
+原文: If a System Calls returns an error before the program start accepting connection, it should write in stderr "Fatal error" followed by a \n and exit with status 1  
+和訳: プログラムが接続の受付を開始する前にシステムコールがエラーを返した場合、標準エラー出力に"Fatal error"と\nを出力し、ステータス1で終了する。
+
+原文: If you cant allocate memory it should write in stderr "Fatal error" followed by a \n and exit with status 1  
+和訳: メモリの割り当てができない場合、標準エラー出力に"Fatal error"と\nを出力し、ステータス1で終了する。
+
+原文: Your program must be non-blocking but client can be lazy and if they don't read your message you must NOT disconnect them...  
+和訳: プログラムはノンブロッキングでなければならないが、クライアントが怠慢でメッセージを読まない場合でも切断してはならない。
+
+原文: Your program must not contains #define preproc  
+和訳: プログラムには#defineプリプロセッサを含めてはならない。
+
+原文: Your program must only listen to 127.0.0.1  
+和訳: プログラムは127.0.0.1のみをリッスンしなければならない。
+
+原文: The fd that you will receive will already be set to make 'recv' or 'send' to block if select hasn't be called before calling them, but will not block otherwise.  
+和訳: 受け取るファイルディスクリプタは、selectを呼ぶ前にrecvやsendを呼ぶとブロックするように設定されているが、それ以外ではブロックしない。
+
+原文: When a client connect to the server:  
+和訳: クライアントがサーバーに接続した時：
+
+原文: - the client will be given an id. the first client will receive the id 0 and each new client will received the last client id + 1  
+和訳: - クライアントにはIDが割り当てられる。最初のクライアントはID 0を受け取り、以降の新しいクライアントは最後のクライアントID + 1を受け取る。
+
+原文: - %d will be replace by this number  
+和訳: - %dはこの数値に置き換えられる。
+
+原文: - a message is sent to all the client that was connected to the server: "server: client %d just arrived\n"  
+和訳: - サーバーに接続していた全てのクライアントに次のメッセージが送信される："server: client %d just arrived\n"
+
+原文: clients must be able to send messages to your program.  
+和訳: クライアントはプログラムにメッセージを送信できなければならない。
+
+原文: - message will only be printable characters, no need to check  
+和訳: - メッセージは印字可能文字のみで、チェックは不要。
+
+原文: - a single message can contains multiple \n  
+和訳: - 1つのメッセージに複数の\nが含まれる可能性がある。
+
+原文: - when the server receive a message, it must resend it to all the other client with "client %d: " before every line!  
+和訳: - サーバーがメッセージを受信した時、全ての他のクライアントに対して各行の前に"client %d: "を付けて再送信しなければならない。
+
+原文: When a client disconnect from the server:  
+和訳: クライアントがサーバーから切断した時：
+
+原文: - a message is sent to all the client that was connected to the server: "server: client %d just left\n"  
+和訳: - サーバーに接続していた全てのクライアントに次のメッセージが送信される："server: client %d just left\n"
+
+原文: Memory or fd leaks are forbidden  
+和訳: メモリリークやファイルディスクリプタのリークは禁止。
+
+原文: To help you, you will find the file main.c with the beginning of a server and maybe some useful functions. (Beware this file use forbidden functions or write things that must not be there in your final program)  
+和訳: 補助として、サーバーの基本構造といくつかの有用な関数を含むmain.cファイルが提供される。（注意：このファイルには禁止された関数や、最終プログラムに含めてはならない記述が含まれている可能性がある）
+
+原文: Warning our tester is expecting that you send the messages as fast as you can. Don't do un-necessary buffer.  
+和訳: 警告：テスターはメッセージをできるだけ速く送信することを期待している。不要なバッファリングを行わないこと。
+
+原文: Evaluation can be a bit longer than usual...  
+和訳: 評価には通常より少し時間がかかる場合がある...
+
+原文: Hint: you can use nc to test your program  
+和訳: ヒント：プログラムのテストにはncを使用できる。
+
+原文: Hint: you should use nc to test your program  
+和訳: ヒント：プログラムのテストにはncを使用すべきである。
+
+原文: Hint: To test you can use fcntl(fd, F_SETFL, O_NONBLOCK) but use select and NEVER check EAGAIN (man 2 send)  
+和訳: ヒント：テストにはfcntl(fd, F_SETFL, O_NONBLOCK)を使用できるが、selectを使用し、EAGAINを絶対にチェックしてはならない（man 2 sendを参照）
